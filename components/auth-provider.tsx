@@ -40,14 +40,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: any } }) => {
-      setUser(session?.user ?? null);
+    supabase.auth.getSession().then((response: any) => {
+      const { data: { session } } = response;      setUser(session?.user ?? null);
       setLoading(false);
     });
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event: any, session: any) => {
       (() => {
         setUser(session?.user ?? null);
       })();
